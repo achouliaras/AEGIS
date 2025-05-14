@@ -1,0 +1,57 @@
+defaults:
+    - _self_
+    - environment
+    - agent: ppo
+    
+# Experiment level parameters
+experiment_type: State-Vis-Pretraining
+test: PEBBLE
+device: cpu
+offline_epochs: 10
+num_seed_steps: 5e4 # Steps that the agent does random actions to fill the buffers 5e3 for continuous
+num_unsup_steps: 5e4 #5000
+num_train_steps: 5e6 #1e6 for continuous
+deploy_mode: False
+
+import_model: True
+import_protocol: NORMAL
+export_protocol: ONLINE
+freeze_protocol: NO
+
+# unsup training
+topK: 5
+# N = 256
+# capacity = np.sqrt(N) * np.log2(N)
+novelty_buffer_capacity: 128 #1e6
+
+policy_update_frequency: 1
+encoder_update_epochs: 1
+
+# evaluation config
+eval_frequency: 100 #10000
+num_eval_episodes: 10
+
+# logger
+log_frequency: 100
+log_save_tb: true
+
+# video recorder (Use only in evaluation)
+save_video: false
+video_location: ${models_dir}/env_eval_clips/
+record_frequency: 1
+
+# setups
+seed: 1
+debug: False
+log_success: True
+
+#Xplain Params
+checkpoint_frec: 500 # No. of steps to 
+checkpoints_dir: ${models_dir}/checkpoints/
+xplain_action: False
+xplain_state: False
+
+models_dir: ${output_dir}/${agent.name}_${test}/seed-${seed}
+
+# All output from experiments
+output_dir: results/${experiment_type}/${domain}/${env}

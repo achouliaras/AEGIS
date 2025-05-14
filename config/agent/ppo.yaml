@@ -1,0 +1,41 @@
+name: PPO
+obs_shape: Null # to be specified on execution
+obs_dim: Null # to be specified on execution
+action_dim: Null # to be specified on execution
+action_range: Null # to be specified on execution
+action_cfg: Null # to be specified on execution
+encoder_update_epochs: 1
+  
+discrete_action:
+  batch_size: 64 # num_update_steps
+  lr: 3e-4
+  anneal_lr: True
+  discount: 0.99
+  gae_lambda: 0.95
+  num_minibatches: 4
+  update_epochs: 4
+  norm_adv: False
+  clip_coef: 0.1
+  clip_vloss: True
+  ent_coef: 0.005
+  vf_coef: 0.5
+  max_grad_norm: 0.5
+  target_kl: None
+  sequence_length: 4
+
+continuous_action:
+  batch_size: 128 # num_update_steps
+  lr: 3e-4
+  anneal_lr: True
+  discount: 0.99
+  gae_lambda: 0.95
+  num_minibatches: 4
+  update_epochs: 4
+  norm_adv: True
+  clip_coef: 0.2
+  clip_vloss: True
+  ent_coef: 0.01
+  vf_coef: 0.5
+  max_grad_norm: 0.5
+  target_kl: None
+  sequence_length: 4

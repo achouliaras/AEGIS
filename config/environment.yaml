@@ -1,0 +1,25 @@
+# Environment
+domain: MiniGrid # highway-env # ALE # MuJoCo
+env: Empty-5x5-v0 # highway-v0 # Pong-v5 # InvertedPendulum-v5
+render_mode: rgb_array
+#max_episode_steps: 100
+max_episode_steps: 100
+
+action_type: Null
+state_type: Null
+latent_dim: 64
+architecture: 'CNN-LSTM'
+mode: 1
+action_space: Null
+obs_space: Null
+action_dim: Null
+
+#Atari Settings (some for Box2D CarRacing)
+obs_type: rgb # [rgb, ram, greyscale]
+frame_stack: 4 # only works if obs_type=pixels
+frameskip: 4
+action_repeat: 1 # set to 2 for pixels
+noop_max: 30
+terminal_on_life_loss: False
+grayscale_obs: True
+scale_obs: False
