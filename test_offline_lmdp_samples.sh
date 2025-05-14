@@ -47,19 +47,6 @@ for offline_num_seed_steps in 5e3 5e4 5e5 10e5 25e5 5e6; do
               #        import_protocol=$pre_import_protocol export_protocol=$pre_export_protocol \
               #        num_seed_steps=$num_seed_steps num_unsup_steps=$num_unsup_steps debug=True test=$test_name
 
-              # # Deploy copies of pretrained agent to environment to generate trajectories using using GNU parallel
-              # parallel -j "$num_cores" \
-              #        "python -m learning_utils.generate_trajectories device=$device \
-              #               domain=$domain env=$env render_mode=rgb_array \
-              #               seed=$seed episodes_to_gen=$episodes_per_core \
-              #               num_seed_steps=$num_seed_steps num_unsup_steps=$num_unsup_steps num_train_steps=$num_train_steps \
-              #               debug=True test=$test_name cpu_id={#} 2>&1 | tee gen_traj_output_{#}.log >/dev/null" ::: $(seq "$num_cores") &
-
-              # trap "trap - SIGTERM && kill -- -$$" SIGINT SIGTERM
-              # wait
-
-              # Reward Model Training from trajectories
-
               # Training script
               python -m learning_on_policy.training device=$device \
                      domain=$domain env=$env render_mode=rgb_array max_episode_steps=100 seed=$seed architecture=$architecture \
